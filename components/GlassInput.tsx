@@ -1,20 +1,22 @@
 import React from "react";
 
-export default function GlassInput({placeholder,}: {
-    placeholder: string;
-}) {
+export default function GlassInput({
+  placeholder,
+  ...props
+}:  React.InputHTMLAttributes<HTMLInputElement>){
   return (
     <input
+      {...props}
       placeholder={placeholder}
       required
       className="
                   w-full
                   rounded-full
                   border border-white/30
-                  bg-white/20
+                  bg-white/5
                   px-5
                   py-3
-                  text-sm
+                  text-base
                   text-white
                   placeholder:text-white/70
                   backdrop-blur-md
@@ -25,7 +27,7 @@ export default function GlassInput({placeholder,}: {
                   outline-none
                   transition
                   focus:border-white/60
-                  focus:bg-white/25
+                  focus:bg-white/1
                 "
     />
   );
