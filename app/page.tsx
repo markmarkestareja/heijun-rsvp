@@ -1,23 +1,93 @@
+"use client";
+
 import GlassInput from "@/components/GlassInput";
 import Image from "next/image";
+import { FormEvent, useState } from "react";
 
 export default function Home() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setIsSubmitting(true);
+    setError("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const data = {
+      first_name: formData.get("first_name"),
+      last_name: formData.get("last_name"),
+      email: formData.get("email"),
+      contact_number: formData.get("contact_number"),
+      company_name: formData.get("company_name"),
+      birth_date: formData.get("birth_date"),
+    };
+
+    console.log("SENDING RSVP:", data);
+
+    try {
+      const response = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      // Read as text first so we can see exactly what the server returned
+      const responseText = await response.text();
+
+      console.log("STATUS:", response.status);
+      console.log("RESPONSE:", responseText);
+
+      let result;
+
+      try {
+        result = JSON.parse(responseText);
+      } catch {
+        throw new Error(
+          `Server returned invalid JSON: ${responseText || "(empty response)"}`,
+        );
+      }
+
+      if (!response.ok) {
+        throw new Error(result.error || "Something went wrong.");
+      }
+
+      setSubmitted(true);
+      form.reset();
+    } catch (error) {
+      console.error("RSVP ERROR:", error);
+
+      setError(
+        error instanceof Error ? error.message : "Something went wrong.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
-    <main 
+    <main
       className="
-        relative 
-        min-h-screen 
-        overflow-hidden 
-        flex 
-        flex-col 
-        justify-start 
-        items-center 
-        gap-8 
-        text-center 
-        text-white 
+        relative
+        min-h-screen
+        overflow-hidden
+        flex
+        flex-col
+        justify-start
+        items-center
+        gap-8
+        text-center
+        text-white
         pt-5
         px-6
-      ">
+      "
+    >
       <Image
         src="/bg.webp"
         alt="Gold background"
@@ -49,7 +119,8 @@ export default function Home() {
         </div>
 
         <h1 className="text-xl lg:text-4xl font-bold flex flex-col">
-          PRODUCT PRESENTATION <span className="text-4xl lg:text-6xl font-normal italic">2026</span>
+          PRODUCT PRESENTATION
+          <span className="text-4xl lg:text-6xl font-normal italic">2026</span>
         </h1>
 
         <p className="font-light text-sm md:text-base max-w-150">
@@ -58,9 +129,12 @@ export default function Home() {
           hospitality businesses.
         </p>
       </div>
+
       <div className="relative flex flex-col items-center">
         <div className="relative top-0 left-0 z-1">
-          <p className="relative top-6 text-8xl lg:text-9xl font-[Great_Vibes] drop-shadow-md/30">You&apos;re Invited</p>
+          <p className="relative top-6 text-8xl lg:text-9xl font-[family-name:var(--font-great-vibes)] drop-shadow-md/30">
+            You&apos;re Invited
+          </p>
         </div>
 
         <div
@@ -74,7 +148,6 @@ export default function Home() {
             max-w-[500px]
           "
         >
-          {/* subtle glass highlight */}
           <div
             className="
               pointer-events-none
@@ -86,35 +159,95 @@ export default function Home() {
             "
           />
 
-          <form className="relative z-10 p-8">
-            <p className="text-light">Please complete the form below to confirm your attendance.</p>
-            <div className="flex flex-col gap-2 pt-2">
-              <GlassInput placeholder="First Name" />
-              <GlassInput placeholder="Last Name" />
-              <GlassInput placeholder="Email" type="email" />
-              <GlassInput placeholder="Contact Number" type="tel" />
-              <GlassInput placeholder="Company Name" />
-              <GlassInput placeholder="Birth Date" type="date" />
-              
-              <button type="submit">Submit</button>
-            </div>
+          <form onSubmit={handleSubmit} className="relative z-10 p-8">
+            {!submitted ? (
+              <>
+                <p className="text-light">
+                  Please complete the form below to confirm your attendance.
+                </p>
+
+                <div className="flex flex-col gap-2 pt-2">
+                  <GlassInput name="first_name" placeholder="First Name" />
+
+                  <GlassInput name="last_name" placeholder="Last Name" />
+
+                  <GlassInput name="email" type="email" placeholder="Email" />
+
+                  <GlassInput
+                    name="contact_number"
+                    type="tel"
+                    placeholder="Contact Number"
+                  />
+
+                  <GlassInput name="company_name" placeholder="Company Name" />
+
+                  <GlassInput
+                    name="birth_date"
+                    type="date"
+                    placeholder="Birth Date"
+                  />
+
+                  {error && (
+                    <p className="text-red-300 text-sm pt-2">{error}</p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="
+                      mt-2
+                      rounded-full
+                      bg-white
+                      px-6
+                      py-3
+                      font-medium
+                      text-black
+                      transition
+                      hover:bg-white/80
+                      disabled:cursor-not-allowed
+                      disabled:opacity-50
+                    "
+                  >
+                    {isSubmitting ? "Submitting..." : "Submit"}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="py-8">
+                <p className="text-3xl font-semibold">Thank You!</p>
+
+                <p className="mt-3 text-white/80">
+                  Your RSVP has been successfully submitted.
+                </p>
+
+                <p className="mt-2 text-sm text-white/60">
+                  We look forward to seeing you at the Heijun Product
+                  Presentation 2026.
+                </p>
+              </div>
+            )}
           </form>
         </div>
       </div>
 
       <div className="lg:mt-10 flex flex-col items-center gap-2">
-        <p className="
-          border
-          rounded-tl-2xl rounded-br-2xl
-          border border-white/30
-          backdrop-blur-xs
-          shadow-[0_20px_50px_rgba(0,0,0,0.25),inset_0_1px_1px_rgba(255,255,255,0.6)]
-          py-4
-          px-6
-          w-fit
-        ">6:00 pm - 9:00 pm</p>
+        <p
+          className="
+            rounded-tl-2xl
+            rounded-br-2xl
+            border border-white/30
+            backdrop-blur-xs
+            shadow-[0_20px_50px_rgba(0,0,0,0.25),inset_0_1px_1px_rgba(255,255,255,0.6)]
+            py-4
+            px-6
+            w-fit
+          "
+        >
+          6:00 pm - 9:00 pm
+        </p>
+
         <div className="relative w-full">
-          <Image 
+          <Image
             src="/date.png"
             alt="date"
             width={1600}
@@ -123,8 +256,6 @@ export default function Home() {
           />
         </div>
       </div>
-
-      
     </main>
   );
 }
