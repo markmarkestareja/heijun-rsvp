@@ -3,6 +3,7 @@
 import GlassInput from "@/components/GlassInput";
 import Image from "next/image";
 import { FormEvent, useState } from "react";
+import { motion } from "motion/react";
 
 export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -99,7 +100,21 @@ export default function Home() {
       <div className="absolute inset-0 bg-black/20 -z-[5]" />
 
       <div className="max-w-3xl relative z-10 flex flex-col gap-1 lg:gap-4">
-        <div className="flex flex-col items-center gap-1 lg:gap-4">
+        <motion.div
+          className="flex flex-col items-center gap-1 lg:gap-4"
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 3,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
           <Image
             src="/logo/emblem.webp"
             alt="emblem of Heijun"
@@ -108,36 +123,92 @@ export default function Home() {
             className="drop-shadow-md/30"
           />
 
-          <div className="w-fit px-8 py-2 rounded-tl-2xl rounded-br-2xl bg-white drop-shadow-md/30">
+          <motion.div
+            className="w-fit px-8 py-2 rounded-tl-2xl rounded-br-2xl bg-white drop-shadow-md/30"
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 2,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
             <Image
               src="/logo/logo-text.webp"
-              alt="emblem of Heijun"
+              alt="Heijun"
               width={100}
               height={100}
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <h1 className="text-xl lg:text-4xl font-bold flex flex-col">
+        <motion.h1
+          className="text-xl lg:text-4xl font-bold flex flex-col"
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 2,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
           PRODUCT PRESENTATION
           <span className="text-4xl lg:text-6xl font-normal italic">2026</span>
-        </h1>
+        </motion.h1>
 
-        <p className="font-light text-sm md:text-base max-w-150">
+        <motion.p
+          className="font-light text-sm md:text-base max-w-150"
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 2.5,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
           A professional presentation introducing Heijun’s products, solutions,
           and opportunities for hotels, resorts, restaurants, and other
           hospitality businesses.
-        </p>
+        </motion.p>
       </div>
 
       <div className="relative flex flex-col items-center">
-        <div className="relative top-0 left-0 z-1">
+        <motion.div
+          className="relative top-0 left-0 z-1"
+          initial={{
+            opacity: 0,
+            y: 40,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 3,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
           <p className="relative top-6 text-8xl lg:text-9xl font-[family-name:var(--font-great-vibes)] drop-shadow-md/30">
             You&apos;re Invited
           </p>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
           className="
             relative
             overflow-hidden
@@ -147,6 +218,18 @@ export default function Home() {
             shadow-[0_20px_50px_rgba(0,0,0,0.25),inset_0_1px_1px_rgba(255,255,255,0.6)]
             max-w-[500px]
           "
+          initial={{ 
+              opacity: 0,
+              y: 50,
+            }}
+            animate={{ 
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 4,
+              ease: [0.22, 1, 0.36, 1],
+            }}
         >
           <div
             className="
@@ -227,7 +310,7 @@ export default function Home() {
               </div>
             )}
           </form>
-        </div>
+        </motion.div>
       </div>
 
       <div className="lg:mt-10 flex flex-col items-center gap-2">
