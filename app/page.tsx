@@ -55,8 +55,14 @@ export default function Home() {
         );
       }
 
-      if (!response.ok) {
-        throw new Error(result.error || "Something went wrong.");
+      if(!response.ok) {
+        console.log("API Error: ", result);
+
+        throw new Error(
+          result.error ||
+          result.message ||
+          JSON.stringify(result)
+        );
       }
 
       setSubmitted(true);
@@ -65,7 +71,7 @@ export default function Home() {
       console.error("RSVP ERROR:", error);
 
       setError(
-        error instanceof Error ? error.message : "Something went wrong.",
+        error instanceof Error ? error.message : "Something went wrong 2.",
       );
     } finally {
       setIsSubmitting(false);
@@ -268,7 +274,7 @@ export default function Home() {
                 placeholder="Birth Date"
               />
 
-              {error && <p className="text-red-300 text-sm pt-2">{error}</p>}
+              {error && <p className="text-red-300 text-base pt-2">{error}</p>}
 
               <button
                 type="submit"
@@ -363,6 +369,7 @@ export default function Home() {
               <Image
                 src="/ty-bg2.webp"
                 alt=""
+                priority
                 width={1350}
                 height={1080}
                 className="block w-full h-auto"
@@ -378,6 +385,7 @@ export default function Home() {
                     bg-clip-text
                     text-transparent
                     leading-[1.4] py-4 px-6
+                    [-webkit-text-stroke:1px_#8B5E00]
                   "
                 >
                   Thank you!
