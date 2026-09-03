@@ -218,18 +218,18 @@ export default function Home() {
             shadow-[0_20px_50px_rgba(0,0,0,0.25),inset_0_1px_1px_rgba(255,255,255,0.6)]
             max-w-[500px]
           "
-          initial={{ 
-              opacity: 0,
-              y: 50,
-            }}
-            animate={{ 
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 4,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+          initial={{
+            opacity: 0,
+            y: 50,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 4,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           <div
             className="
@@ -243,72 +243,53 @@ export default function Home() {
           />
 
           <form onSubmit={handleSubmit} className="relative z-10 p-8">
-            {!submitted ? (
-              <>
-                <p className="text-light">
-                  Please complete the form below to confirm your attendance.
-                </p>
+            <p className="text-light">
+              Please complete the form below to confirm your attendance.
+            </p>
 
-                <div className="flex flex-col gap-2 pt-2">
-                  <GlassInput name="first_name" placeholder="First Name" />
+            <div className="flex flex-col gap-2 pt-2">
+              <GlassInput name="first_name" placeholder="First Name" />
 
-                  <GlassInput name="last_name" placeholder="Last Name" />
+              <GlassInput name="last_name" placeholder="Last Name" />
 
-                  <GlassInput name="email" type="email" placeholder="Email" />
+              <GlassInput name="email" type="email" placeholder="Email" />
 
-                  <GlassInput
-                    name="contact_number"
-                    type="tel"
-                    placeholder="Contact Number"
-                  />
+              <GlassInput
+                name="contact_number"
+                type="tel"
+                placeholder="Contact Number"
+              />
 
-                  <GlassInput name="company_name" placeholder="Company Name" />
+              <GlassInput name="company_name" placeholder="Company Name" />
 
-                  <GlassInput
-                    name="birth_date"
-                    type="date"
-                    placeholder="Birth Date"
-                  />
+              <GlassInput
+                name="birth_date"
+                type="date"
+                placeholder="Birth Date"
+              />
 
-                  {error && (
-                    <p className="text-red-300 text-sm pt-2">{error}</p>
-                  )}
+              {error && <p className="text-red-300 text-sm pt-2">{error}</p>}
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="
-                      mt-2
-                      rounded-full
-                      bg-white
-                      px-6
-                      py-3
-                      font-medium
-                      text-black
-                      transition
-                      hover:bg-white/80
-                      disabled:cursor-not-allowed
-                      disabled:opacity-50
-                    "
-                  >
-                    {isSubmitting ? "Submitting..." : "Submit"}
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div className="py-8">
-                <p className="text-3xl font-semibold">Thank You!</p>
-
-                <p className="mt-3 text-white/80">
-                  Your RSVP has been successfully submitted.
-                </p>
-
-                <p className="mt-2 text-sm text-white/60">
-                  We look forward to seeing you at the Heijun Product
-                  Presentation 2026.
-                </p>
-              </div>
-            )}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="
+        mt-2
+        rounded-full
+        bg-white
+        px-6
+        py-3
+        font-medium
+        text-black
+        transition
+        hover:bg-white/80
+        disabled:cursor-not-allowed
+        disabled:opacity-50
+      "
+              >
+                {isSubmitting ? "Submitting..." : "Submit"}
+              </button>
+            </div>
           </form>
         </motion.div>
       </div>
@@ -339,6 +320,103 @@ export default function Home() {
           />
         </div>
       </div>
+
+      {submitted && (
+        <motion.div
+          className="
+      fixed inset-0 z-50
+      flex items-center justify-center
+      bg-black/20
+      backdrop-blur-[6px]
+      px-4
+    "
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.9,
+              y: 30,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="
+        w-full
+        max-w-[500px]
+        rounded-[24px]
+        overflow-hidden
+        shadow-[0_30px_80px_rgba(0,0,0,0.4)]
+      "
+          >
+            {/* Frame 146 content */}
+            <div className="relative w-full text-center text-black">
+              {/* Background — determines container aspect ratio */}
+              <Image
+                src="/ty-bg2.webp"
+                alt=""
+                width={1350}
+                height={1080}
+                className="block w-full h-auto"
+              />
+
+              {/* Content overlay */}
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center">
+                <p
+                  className="
+                    text-6xl md:text-8xl
+                    font-[family-name:var(--font-great-vibes)]
+                    bg-[linear-gradient(90deg,#F8D78C_0%,#D49305_41%,#F6CB6A_61%,#D49305_86%)]
+                    bg-clip-text
+                    text-transparent
+                    leading-[1.4] py-4 px-6
+                  "
+                >
+                  Thank you!
+                </p>
+
+                <p className="mt-4 text-sm text-black bg-yellow-200 px-2 py-1 rounded-lg">
+                  Your RSVP has been successfully submitted.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  aria-label="Close thank you message"
+                  className="
+                    absolute
+                    top-4
+                    right-4
+                    z-20
+                    flex
+                    h-10
+                    w-10
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-black/30
+                    text-2xl
+                    text-white
+                    backdrop-blur-md
+                    transition
+                    hover:bg-black/50
+                    hover:scale-105
+                  "
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </main>
   );
 }

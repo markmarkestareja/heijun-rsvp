@@ -13,3 +13,9 @@ export const supabaseAdmin = createClient(
     },
   }
 );
+
+console.log("SUPABASE URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
+console.log(
+  "SECRET EXISTS:",
+  !!process.env.SUPABASE_SECRET_KEY
+);
