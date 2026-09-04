@@ -316,7 +316,7 @@ export default function Home() {
           6:00 pm - 9:00 pm
         </p>
 
-        <div className="relative w-full h-full">
+        <div className="relative w-full">
           <Image
             src="/date.webp"
             alt="date"
