@@ -83,7 +83,8 @@ export default function Home() {
       className="
         relative
         min-h-screen
-        overflow-hidden
+        overflow-x-hidden
+        overflow-y-visible
         flex
         flex-col
         justify-start
@@ -316,9 +317,9 @@ export default function Home() {
           6:00 pm - 9:00 pm
         </p>
 
-        <div className="relative w-full">
+        <div className="relative w-screen px-4 lg:px-12">
           <Image
-            src="/date2.webp"
+            src="/date3.webp"
             alt="date"
             width={1600}
             height={400}
