@@ -318,7 +318,7 @@ export default function Home() {
 
         <div className="relative w-full">
           <Image
-            src="/date.webp"
+            src="/date2.webp"
             alt="date"
             width={1600}
             height={400}
