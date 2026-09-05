@@ -15,6 +15,7 @@ export async function POST(request: Request) {
       email,
       contact_number,
       company_name,
+      position,
       birth_date,
     } = body;
 
@@ -25,6 +26,7 @@ export async function POST(request: Request) {
       !email ||
       !contact_number ||
       !company_name ||
+      !position ||
       !birth_date
     ) {
       return NextResponse.json(
@@ -80,6 +82,7 @@ export async function POST(request: Request) {
           email,
           contact_number,
           company_name,
+          position,
           birth_date,
         },
       ])

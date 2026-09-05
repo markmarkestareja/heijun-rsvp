@@ -25,6 +25,7 @@ export default function Home() {
       email: formData.get("email"),
       contact_number: formData.get("contact_number"),
       company_name: formData.get("company_name"),
+      position: formData.get("position"),
       birth_date: formData.get("birth_date"),
     };
 
@@ -169,9 +170,11 @@ export default function Home() {
             ease: [0.22, 1, 0.36, 1],
           }}
         >
-          PRODUCT PRESENTATION
+          HEIJUN PRODUCT PRESENTATION
           <span className="text-4xl lg:text-6xl font-normal italic">2026</span>
         </motion.h1>
+
+        <p className="font-bold text-base md:text-lg">Products. Solutions. Opportunities.</p>
 
         <motion.p
           className="font-light text-sm md:text-base max-w-150"
@@ -188,9 +191,7 @@ export default function Home() {
             ease: [0.22, 1, 0.36, 1],
           }}
         >
-          A professional presentation introducing Heijun’s products, solutions,
-          and opportunities for hotels, resorts, restaurants, and other
-          hospitality businesses.
+          “Creating Better Spaces. Delivering Better Solutions. Building Better Hospitality.”
         </motion.p>
       </div>
 
@@ -268,6 +269,8 @@ export default function Home() {
               />
 
               <GlassInput name="company_name" placeholder="Company Name" />
+
+              <GlassInput name="position" placeholder="Position" />
 
               <GlassInput
                 name="birth_date"
