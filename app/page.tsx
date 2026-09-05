@@ -174,7 +174,21 @@ export default function Home() {
           <span className="text-4xl lg:text-6xl font-normal italic">2026</span>
         </motion.h1>
 
-        <p className="font-bold text-base md:text-lg">Products. Solutions. Opportunities.</p>
+        <motion.p 
+          className="font-bold text-base md:text-lg"
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 2.2,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          >Products. Solutions. Opportunities.</motion.p>
 
         <motion.p
           className="font-light text-sm md:text-base max-w-150"
